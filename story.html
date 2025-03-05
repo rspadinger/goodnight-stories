@@ -456,7 +456,7 @@
 </head>
 <body>
     <div class="story-header">
-        <a href="page.html" class="back-button" aria-label="Retour à la page d'accueil">
+        <a href="index.html" class="back-button" aria-label="Retour à la page d'accueil">
             <i class="fas fa-arrow-left"></i>
         </a>
         <h1 class="story-title" id="storyTitle">Chargement...</h1>
@@ -525,7 +525,7 @@
             
             // Update back button to preserve language
             const backButton = document.querySelector('.back-button');
-            backButton.href = `page.html?lang=${language}`;
+            backButton.href = `index.html?lang=${language}`;
             
             // Update page title and document title with loading state
             document.title = language === 'fr' ? 
@@ -578,7 +578,7 @@
                                 '! Désolé, nous n\'avons pas pu charger cette histoire.' : 
                                 '! Entschuldigung, diese Geschichte kann nicht geladen werden.'}</p>
                             
-                            <p><a href="page.html" style="color: #ff9de2;">${language === 'fr' ? 
+                            <p><a href="index.html" style="color: #ff9de2;">${language === 'fr' ? 
                                 'Retourner à la page d\'accueil' : 
                                 'Zurück zur Startseite'}</a></p>
                         </div>
