@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Histoires du Soir de Nayana</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Keep the same background as the main page */
+            background: url('images/bg.jpg') repeat-y center top;
+            background-size: cover;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.8;
+        }
+        
+        .story-header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ff9de2, #b76fce);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            z-index: 100;
+        }
+        
+        .back-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .story-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255, 157, 226, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 157, 226, 0.8), 0 0 20px rgba(255, 157, 226, 0.5);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(255, 157, 226, 1), 0 0 30px rgba(255, 157, 226, 0.7);
+            }
+        }
+        
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto 50px;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 7px;
+            background: linear-gradient(90deg, #ff9de2, #b76fce, #ff9de2);
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .story-text {
+            font-size: 1.25rem;
+            text-align: justify;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .story-text p {
+            margin-bottom: 20px;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+        }
+        
+        .story-text p:first-of-type::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            float: left;
+            line-height: 0.8;
+            margin-right: 10px;
+            color: #b76fce;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Decorative elements inside the story container */
+        .story-decoration {
+            position: absolute;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        
+        .decoration-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 5rem;
+            transform: rotate(-15deg);
+        }
+        
+        .decoration-2 {
+            bottom: 15%;
+            right: 5%;
+            font-size: 4rem;
+            transform: rotate(10deg);
+        }
+        
+        .decoration-3 {
+            top: 40%;
+            right: 10%;
+            font-size: 3rem;
+            transform: rotate(-5deg);
+        }
+        
+        .decoration-4 {
+            bottom: 30%;
+            left: 8%;
+            font-size: 4.5rem;
+            transform: rotate(20deg);
+        }
+        
+        /* Animated decorative elements around the story container */
+        .floating-decoration {
+            position: absolute;
+            z-index: -1;
+            pointer-events: none;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        
+        .star {
+            color: #ffeb3b;
+            text-shadow: 0 0 10px rgba(255, 235, 59, 0.7);
+            animation-name: float-rotate;
+        }
+        
+        .butterfly {
+            color: #ff9de2;
+            text-shadow: 0 0 10px rgba(255, 157, 226, 0.7);
+            animation-name: flutter;
+        }
+        
+        .rainbow {
+            color: #b76fce;
+            text-shadow: 0 0 10px rgba(183, 111, 206, 0.7);
+            animation-name: float;
+        }
+        
+        .moon {
+            color: #e0e0e0;
+            text-shadow: 0 0 10px rgba(224, 224, 224, 0.7);
+            animation-name: pulse-glow;
+        }
+        
+        .fairy {
+            color: #81d4fa;
+            text-shadow: 0 0 10px rgba(129, 212, 250, 0.7);
+            animation-name: fairy-float;
+        }
+        
+        /* Animation for stars */
+        @keyframes float-rotate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-15px) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+                opacity: 0.7;
+            }
+        }
+        
+        /* Animation for butterflies */
+        @keyframes flutter {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            25% {
+                transform: translateY(-10px) translateX(10px) rotate(10deg);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateY(0) translateX(20px) rotate(0deg);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(10px) translateX(10px) rotate(-10deg);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0.7;
+            }
+        }
+        
+        /* Animation for rainbows */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-20px);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 0.6;
+            }
+        }
+        
+        /* Animation for moons */
+        @keyframes pulse-glow {
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
+                text-shadow: 0 0 10px rgba(224, 224, 224, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.9;
+                text-shadow: 0 0 20px rgba(224, 224, 224, 0.8);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+                text-shadow: 0 0 10px rgba(224, 224, 224, 0.5);
+            }
+        }
+        
+        /* Animation for fairies */
+        @keyframes fairy-float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.6;
+            }
+            25% {
+                transform: translateY(-15px) translateX(15px);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateY(-25px) translateX(0);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-15px) translateX(-15px);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.6;
+            }
+        }
+        
+        /* Border decorations */
+        .border-decoration {
+            position: absolute;
+            font-size: 1.8rem;
+            color: rgba(183, 111, 206, 0.6);
+            text-shadow: 0 0 5px rgba(255, 157, 226, 0.4);
+            z-index: 5;
+        }
+        
+        /* Top border decorations */
+        .top-left {
+            top: 10px;
+            left: 10px;
+            transform: rotate(-25deg);
+        }
+        
+        .top-center {
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .top-right {
+            top: 10px;
+            right: 10px;
+            transform: rotate(25deg);
+        }
+        
+        /* Bottom border decorations */
+        .bottom-left {
+            bottom: 10px;
+            left: 10px;
+            transform: rotate(25deg);
+        }
+        
+        .bottom-center {
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .bottom-right {
+            bottom: 10px;
+            right: 10px;
+            transform: rotate(-25deg);
+        }
+        
+        /* Side border decorations */
+        .left-center {
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .right-center {
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .emoji {
+            display: inline-block;
+            transform: scale(1.2);
+            margin: 0 3px;
+        }
+        
+        .loading {
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 50px;
+            color: #b76fce;
+        }
+        
+        .error-message {
+            text-align: center;
+            color: #ff9de2;
+            font-size: 1.2rem;
+            padding: 30px;
+        }
+        
+        /* Language indicator */
+        .language-indicator {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #ff9de2, #b76fce);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        
+        @media (max-width: 900px) {
+            .story-container {
+                margin: 0 20px 50px;
+                padding: 30px;
+            }
+            
+            .story-title {
+                font-size: 2.8rem;
+                padding: 0 20px;
+            }
+            
+            .back-button {
+                top: 20px;
+                left: 20px;
+            }
+            
+            .story-text {
+                font-size: 1.2rem;
+            }
+            
+            .language-indicator {
+                top: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .story-container {
+                padding: 25px;
+            }
+            
+            .story-title {
+                font-size: 2.2rem;
+            }
+            
+            .story-text {
+                font-size: 1.1rem;
+            }
+            
+            .back-button {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .floating-decoration {
+                display: none;
+            }
+            
+            .language-indicator {
+                top: 20px;
+                right: 20px;
+                width: 35px;
+                height: 35px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="story-header">
+        <a href="page.html" class="back-button" aria-label="Retour à la page d'accueil">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <h1 class="story-title" id="storyTitle">Chargement...</h1>
+        <div style="visibility: hidden;" class="language-indicator" id="languageIndicator">FR</div>
+    </div>
+    
+    <!-- Floating decorative elements around the story container -->
+    <div class="floating-decoration star" style="top: 15%; left: 12%; font-size: 10rem; animation-duration: 24s;">✨</div>
+    <div class="floating-decoration star" style="top: 15%; right: 8%; font-size: 10rem; animation-duration: 22s;">✨</div>
+    <div class="floating-decoration star" style="bottom: 20%; left: 14%; font-size: 8rem; animation-duration: 18s;">✨</div>
+    <div class="floating-decoration star" style="bottom: 16%; right: 14%; font-size: 8rem; animation-duration: 16s;">✨</div>
+    
+    <div class="floating-decoration butterfly" style="top: 34%; right: 12%; font-size: 8rem; animation-duration: 12s;">🦋</div>
+    <div class="floating-decoration butterfly" style="bottom: 2%; right: 8%; font-size: 7rem; animation-duration: 10s;">🦋</div>
+    
+    <div class="floating-decoration rainbow" style="top: 15%; left: 30%; font-size: 2.5rem; animation-duration: 9s;">🌈</div>
+    <div class="floating-decoration rainbow" style="bottom: 20%; right: 30%; font-size: 2.3rem; animation-duration: 11s;">🌈</div>
+    
+    <div class="floating-decoration moon" style="top: 50%; left: 12%; font-size: 5rem; animation-duration: 7s;">🌙</div>
+    <div class="floating-decoration moon" style="bottom: 35%; right: 12%; font-size: 5rem; animation-duration: 8s;">🌙</div>
+    
+    <div class="floating-decoration fairy" style="top: 32%; left: 8%; font-size: 8rem; animation-duration: 13s;">🧚</div>
+    <div class="floating-decoration fairy" style="bottom: 3%; left: 8%; font-size: 7rem; animation-duration: 14s;">🧚</div>
+    
+    <div class="story-container">
+        <!-- Border decorations -->
+        <div class="border-decoration top-left">✨</div>
+        <div class="border-decoration top-center">🌈</div>
+        <div class="border-decoration top-right">✨</div>
+        
+        <div class="border-decoration left-center">🦋</div>
+        <div class="border-decoration right-center">🦋</div>
+        
+        <div class="border-decoration bottom-left">✨</div>
+        <div class="border-decoration bottom-center">🌈</div>
+        <div class="border-decoration bottom-right">✨</div>
+        
+        <!-- Decorative elements inside the story container -->
+        <div class="story-decoration decoration-1">✨</div>
+        <div class="story-decoration decoration-2">🌈</div>
+        <div class="story-decoration decoration-3">🦋</div>
+        <div class="story-decoration decoration-4">🌟</div>
+        
+        <div class="story-text" id="storyContent">
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Chargement de l'histoire...
+            </div>
+        </div>        
+    </div>
+
+    <div style="height: 30px;"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the story ID and language from the URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const storyId = urlParams.get('id') || '1'; // Default to story1 if no ID provided
+            const language = urlParams.get('lang') || 'fr'; // Default to French if no language provided
+            
+            // Update language indicator
+            const languageIndicator = document.getElementById('languageIndicator');
+            languageIndicator.textContent = language.toUpperCase();
+            
+            // Update html lang attribute
+            document.documentElement.lang = language;
+            
+            // Update back button to preserve language
+            const backButton = document.querySelector('.back-button');
+            backButton.href = `page.html?lang=${language}`;
+            
+            // Update page title and document title with loading state
+            document.title = language === 'fr' ? 
+                'Les Histoires du Soir de Nayana - Chargement...' : 
+                'Nayana Gute-Nacht-Geschichten - Wird geladen...';
+            
+            // Function to load the story content
+            async function loadStory() {
+                try {
+                    // Fetch the story text file with language suffix
+                    const response = await fetch(`stories/story${storyId}-${language.toUpperCase()}.txt`);
+                    
+                    if (!response.ok) {
+                        throw new Error(language === 'fr' ? 
+                            `Impossible de charger l'histoire (${response.status})` : 
+                            `Geschichte konnte nicht geladen werden (${response.status})`);
+                    }
+                    
+                    const text = await response.text();
+                    
+                    // Split the text into lines
+                    const lines = text.split('\n');
+                    
+                    // The first line is the title
+                    const title = lines[0].trim();
+                    
+                    // The rest is the story content
+                    const storyContent = lines.slice(1).join('\n').trim();
+                    
+                    // Update the page title
+                    document.title = language === 'fr' ? 
+                        `Les Histoires du Soir de Nayana - ${title}` : 
+                        `Nayana Gute-Nacht-Geschichten - ${title}`;
+                    
+                    // Update the story title
+                    document.getElementById('storyTitle').textContent = title;
+                    
+                    // Process the story content
+                    const storyHTML = processStoryContent(storyContent);
+                    
+                    // Update the story content
+                    document.getElementById('storyContent').innerHTML = storyHTML;
+                    
+                } catch (error) {
+                    console.error('Error loading story:', error);
+                    document.getElementById('storyContent').innerHTML = `
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>${language === 'fr' ? 
+                                '! Désolé, nous n\'avons pas pu charger cette histoire.' : 
+                                '! Entschuldigung, diese Geschichte kann nicht geladen werden.'}</p>
+                            
+                            <p><a href="page.html" style="color: #ff9de2;">${language === 'fr' ? 
+                                'Retourner à la page d\'accueil' : 
+                                'Zurück zur Startseite'}</a></p>
+                        </div>
+                    `;
+                    document.getElementById('storyTitle').textContent = language === 'fr' ? 'Erreur' : 'Fehler';
+                }
+            }
+            
+            // Function to process the story content and convert it to HTML
+            function processStoryContent(content) {
+                // Split the content into paragraphs
+                const paragraphs = content.split('\n\n').filter(p => p.trim() !== '');
+                
+                // Process each paragraph
+                return paragraphs.map(paragraph => {
+                    // Highlight emojis
+                    const processedParagraph = paragraph.replace(/(\p{Emoji})/gu, '<span class="emoji">$1</span>');
+                    return `<p>${processedParagraph}</p>`;
+                }).join('');
+            }
+            
+            // Load the story
+            loadStory();
+        });
+    </script>
+</body>
+</html>
