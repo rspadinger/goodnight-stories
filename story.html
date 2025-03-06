@@ -94,6 +94,35 @@
             border-radius: 20px 20px 0 0;
         }
         
+        /* Story image styling */
+        .story-image-container {
+            margin: -40px -40px 30px -40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease;
+        }
+        
+        .story-image:hover {
+            transform: scale(1.03);
+        }
+        
+        .story-image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.85), transparent);
+        }
+        
         .story-text {
             font-size: 1.25rem;
             text-align: justify;
@@ -419,6 +448,14 @@
                 height: 40px;
                 font-size: 0.8rem;
             }
+            
+            .story-image-container {
+                margin: -30px -30px 25px -30px;
+            }
+            
+            .story-image {
+                height: 250px;
+            }
         }
         
         @media (max-width: 600px) {
@@ -451,6 +488,14 @@
                 height: 35px;
                 font-size: 0.7rem;
             }
+            
+            .story-image-container {
+                margin: -25px -25px 20px -25px;
+            }
+            
+            .story-image {
+                height: 200px;
+            }
         }
     </style>
 </head>
@@ -482,6 +527,12 @@
     <div class="floating-decoration fairy" style="bottom: 3%; left: 8%; font-size: 7rem; animation-duration: 14s;">🧚</div>
     
     <div class="story-container">
+        <!-- Story image at the top of the container -->
+        <div class="story-image-container">
+            <img id="storyImage" src="images/img1.jpg" alt="Story Image" class="story-image">
+            <div class="story-image-overlay"></div>
+        </div>
+        
         <!-- Border decorations -->
         <div class="border-decoration top-left">✨</div>
         <div class="border-decoration top-center">🌈</div>
@@ -515,6 +566,11 @@
             const urlParams = new URLSearchParams(window.location.search);
             const storyId = urlParams.get('id') || '1'; // Default to story1 if no ID provided
             const language = urlParams.get('lang') || 'fr'; // Default to French if no language provided
+            
+            // Update the story image based on the story ID
+            const storyImage = document.getElementById('storyImage');
+            storyImage.src = `images/img${storyId}.jpg`;
+            storyImage.alt = `Story ${storyId} Image`;
             
             // Update language indicator
             const languageIndicator = document.getElementById('languageIndicator');
